@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlashcardPro - Advanced Learning Platform</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- Theme Toggle -->
+  <button id="themeToggle" class="theme-toggle" title="Toggle Dark/Light Mode">
+    <i class="fas fa-moon"></i>
+  </button>
+
+  <!-- Welcome Screen -->
+  <div id="welcomeScreen">
+    <div class="welcome-content">
+      <div class="logo-container">
+        <i class="fas fa-brain"></i>
+      </div>
+      <h1>FlashcardPro</h1>
+      <p class="tagline">Master Your Knowledge, One Card at a Time</p>
+      <div class="features-preview">
+        <span><i class="fas fa-trophy"></i> Track Progress</span>
+        <span><i class="fas fa-chart-line"></i> Analytics</span>
+        <span><i class="fas fa-star"></i> Achievements</span>
+      </div>
+      <button id="startBtn" class="btn-primary">
+        <span>Start Learning</span>
+        <i class="fas fa-arrow-right"></i>
+      </button>
+    </div>
+    <div class="signature">Parth.S.Kochale</div>
+  </div>
+
+  <!-- Main App -->
+  <main class="container" id="mainApp">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-left">
+        <i class="fas fa-brain"></i>
+        <h1>FlashcardPro</h1>
+      </div>
+      <div class="header-right">
+        <div class="streak-badge">
+          <i class="fas fa-fire"></i>
+          <span id="streakCount">0</span>
+        </div>
+        <div class="level-badge">
+          <i class="fas fa-star"></i>
+          <span id="levelText">Level 1</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Stats Dashboard -->
+    <section class="stats-dashboard">
+      <div class="stat-card">
+        <i class="fas fa-layer-group"></i>
+        <div class="stat-info">
+          <span class="stat-value" id="totalCards">0</span>
+          <span class="stat-label">Total Cards</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-check-circle"></i>
+        <div class="stat-info">
+          <span class="stat-value" id="masteredCards">0</span>
+          <span class="stat-label">Mastered</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-chart-line"></i>
+        <div class="stat-info">
+          <span class="stat-value" id="accuracyRate">0%</span>
+          <span class="stat-label">Accuracy</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-clock"></i>
+        <div class="stat-info">
+          <span class="stat-value" id="studyTime">0m</span>
+          <span class="stat-label">Study Time</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Progress Bar -->
+    <div class="progress-section">
+      <div class="progress-header">
+        <span id="scoreText">Score: 0 / 0</span>
+        <button id="restartBtn" class="btn-small">
+          <i class="fas fa-redo"></i> Reset Progress
+        </button>
+      </div>
+      <div class="progress-bar-container">
+        <div id="progressBar" class="progress-bar"></div>
+      </div>
+    </div>
+
+    <!-- Add Card Section -->
+    <section class="card-input-section">
+      <h2><i class="fas fa-plus-circle"></i> Create New Flashcard</h2>
+      <div class="input-group">
+        <div class="input-wrapper">
+          <label for="q"><i class="fas fa-question-circle"></i> Question</label>
+          <textarea id="q" placeholder="Enter your question here..." rows="2"></textarea>
+        </div>
+        <div class="input-wrapper">
+          <label for="a"><i class="fas fa-lightbulb"></i> Answer</label>
+          <textarea id="a" placeholder="Enter the answer here..." rows="2"></textarea>
+        </div>
+      </div>
+      <div class="input-actions">
+        <select id="difficulty">
+          <option value="easy">Easy</option>
+          <option value="medium" selected>Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+        <select id="category">
+          <option value="general">General</option>
+          <option value="java">Java</option>
+          <option value="programming">Programming</option>
+          <option value="theory">Theory</option>
+          <option value="other">Other</option>
+        </select>
+        <button id="addBtn" class="btn-primary">
+          <i class="fas fa-plus"></i> Add Card
+        </button>
+      </div>
+    </section>
+
+    <!-- Control Panel -->
+    <section class="control-panel">
+      <div class="search-wrapper">
+        <i class="fas fa-search"></i>
+        <input id="searchBox" placeholder="Search flashcards...">
+      </div>
+      <div class="control-buttons">
+        <button id="shuffleBtn" class="btn-secondary">
+          <i class="fas fa-random"></i> Shuffle
+        </button>
+        <button id="quizBtn" class="btn-secondary">
+          <i class="fas fa-graduation-cap"></i> Quiz Mode
+        </button>
+        <button id="practiceBtn" class="btn-secondary">
+          <i class="fas fa-dumbbell"></i> Practice
+        </button>
+        <button id="exportBtn" class="btn-secondary">
+          <i class="fas fa-download"></i> Export
+        </button>
+        <input type="file" id="importFile" accept=".json" hidden>
+        <button id="importBtn" class="btn-secondary">
+          <i class="fas fa-upload"></i> Import
+        </button>
+        <button id="clearBtn" class="btn-danger">
+          <i class="fas fa-trash"></i> Clear All
+        </button>
+      </div>
+    </section>
+
+    <!-- Filter Tabs -->
+    <div class="filter-tabs">
+      <button class="tab-btn active" data-filter="all">
+        <i class="fas fa-th"></i> All Cards
+      </button>
+      <button class="tab-btn" data-filter="easy">
+        <i class="fas fa-smile"></i> Easy
+      </button>
+      <button class="tab-btn" data-filter="medium">
+        <i class="fas fa-meh"></i> Medium
+      </button>
+      <button class="tab-btn" data-filter="hard">
+        <i class="fas fa-frown"></i> Hard
+      </button>
+      <button class="tab-btn" data-filter="mastered">
+        <i class="fas fa-trophy"></i> Mastered
+      </button>
+    </div>
+
+    <!-- Flashcards Grid -->
+    <section id="cardsContainer" class="cards-grid"></section>
+
+    <!-- Empty State -->
+    <div id="emptyState" class="empty-state" style="display: none;">
+      <i class="fas fa-inbox"></i>
+      <h3>No Flashcards Yet</h3>
+      <p>Create your first flashcard or import a deck to get started!</p>
+    </div>
+
+    <!-- Footer Signature -->
+    <div class="signature footer-signature">Parth.S.Kochale</div>
+  </main>
+
+  <!-- Quiz Modal -->
+  <div id="quizModal" class="modal">
+    <div class="modal-content">
+      <button class="modal-close" id="closeQuiz">
+        <i class="fas fa-times"></i>
+      </button>
+      <div class="quiz-header">
+        <h2><i class="fas fa-graduation-cap"></i> Quiz Mode</h2>
+        <div class="quiz-stats">
+          <span id="quizScore">0/0</span>
+          <span id="quizTimer">00:00</span>
+        </div>
+      </div>
+      <div class="quiz-body">
+        <div class="quiz-progress">
+          <div id="quizProgressBar"></div>
+        </div>
+        <div class="question-container">
+          <span class="question-number" id="questionNumber">Question 1</span>
+          <h3 id="quizQuestion">Loading question...</h3>
+        </div>
+        <input type="text" id="quizAnswer" placeholder="Type your answer here..." autocomplete="off">
+        <div class="quiz-buttons">
+          <button id="hintBtn" class="btn-secondary">
+            <i class="fas fa-lightbulb"></i> Hint
+          </button>
+          <button id="submitAnswerBtn" class="btn-primary">
+            <i class="fas fa-check"></i> Submit Answer
+          </button>
+          <button id="skipBtn" class="btn-secondary">
+            <i class="fas fa-forward"></i> Skip
+          </button>
+        </div>
+        <div id="answerFeedback" class="answer-feedback"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Achievements Modal -->
+  <div id="achievementPopup" class="achievement-popup">
+    <div class="achievement-content">
+      <i class="fas fa-trophy"></i>
+      <h3 id="achievementTitle">Achievement Unlocked!</h3>
+      <p id="achievementDesc">You've reached a new milestone!</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
